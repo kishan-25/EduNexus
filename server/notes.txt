@@ -1,0 +1,271 @@
+Lecture : 1
+
+steps
+1: install dependencies
+npm init -y, npm i express, npm i dotenv, npm i nodemailer, npm i cookie-parser,
+npm i jsonwebtoken, npm i otp-generator, npm i bcrypt, npm i mongoose, npm i nodemon
+
+2: make changes in package.json
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+
+3: create folders
+config, controllers, middlewares, models, routes, utils
+
+4: create .env and index.js file
+
+5: create database.js in config folder
+config/database.js
+
+const mongoose = require("mongoose");
+require("dotenv").config();
+
+exports.connect = () => {
+    mongoose.connect(process.env.MONGODB_URL)
+    .then( () => console.log("DB connected Successfully"))
+    .catch( (error) => {
+        console.log("DB Connection Failed");
+        console.error(error);
+        process.exit(1);
+    })
+}
+
+6: create files in models folder
+
+7: in utils folder, create an premiddleware joki otp bhejne ke kam me aayga or isse hi mail verify hoga
+utils/mailSender.js
+
+const nodemailer = require("nodemailer");
+
+const mailSender = async (email, title, body) => {
+    try{
+        let transporter = nodemailer.createTransport({
+            host:process.env.MAIL_HOST,
+            auth:{
+                user:process.env.MAIL_USER,
+                pass: process.env.MAIL_PASS,
+            }
+        })
+
+        let info = await transporter.sendMail({
+            from: "StudyNotion || CideHelp - by Babbar",
+            to: `${email}`,
+            subject: `${title}`,
+            html: `${body}`,
+        })
+        console.log(info);
+        return info;
+    }
+    catch(error){
+        console.log(error.message);
+    }
+}
+
+module.exports = mailSender;
+
+8: write this in models/OTP.js so that premiddleware can be called
+
+// a function -> to send emails
+async function sendVerificationEmail(email, otp) {
+    try{
+        const mailResponse = await mailSender(email, "Verification Email from StudyNotion", otp);
+        console.log("Email sent Successfully");
+    }
+    catch(error){
+        console.log("error occured while sending mails: ",error);
+        throw error;
+    }
+}
+
+OTPSchema.pre("save", async function(next) {
+    await sendVerificationEmail(this.email,this.otp);
+    next(); // ye vala task krne ka bad aap next middleware pr chale jayenge 
+})
+
+pre middleware es liye use kr rhe taki db me kisi bhi instructor ya student ki db me entry create hone se phele ek otp jaye or email confirm krvaye 
+
+Lecture : 2
+
+create controllers
+controllers/Auth.js
+
+1:send otp
+Algo
+  //fetch email  from request ki body
+  //check if user already exist
+  //if user already exist, then return a response
+  //generate otp
+  //check unique otp or not
+  //create an entry for OTP
+  //return response successful
+
+2:signup
+Algo
+  //data fetch from request ki body
+  // validate krlo
+  // check user already exist or not
+  //find most recent OTP stored for the user
+  //validate OTP
+  //OTP found
+  //Invalid OTP
+  // Hash password
+  //entry create in DB
+  //return res
+
+3:Login
+Algo 
+   //get data from req body
+   // validation data
+   //user check exist or not
+   // generate JWT, after password matching
+   //create cookie and send response
+
+4:ChangePassword
+Algo
+    //get data from req body
+    //get oldPassword, newPassword, confirmPassword
+    //validation
+
+    //update pwd in DB
+    //send mail - Password updated
+    //return response 
+
+controllers/ResetPassword.js
+
+//reset Password Token -->send mail
+//get email from req body
+  //Check if user exists or not , validation as well
+  //token generate
+    //update user by adding token and expiration time
+        //create url
+           //send mail with url
+            //return response
+
+//restPassword->create entry in db
+     //data fetch
+    //validation
+     //get user details from db using token
+      //if no entry -> invalid token
+      //check if expired token
+       //password hash
+        //password update
+          //return response
+
+create middlewares
+
+    auth
+    isStudent
+    isInstructor
+    isAdmin
+
+Lecture : 3
+
+npm i cloudinary
+
+
+Lecture : 4
+
+controllers/Section.js
+
+1: create method by createSection
+        //data fetch 
+        //data validation
+        //create section
+        //update course with section ObjectID
+        //return response
+
+2: create method by updateSection
+        //data fetch 
+        //data validation
+        //update data
+        //return res
+
+3: create method by deleteSection
+        //get Id
+        //use findByIdand Delete
+        //return response
+
+controllers/SubSection.js
+
+1: create method by createSubSection
+        //fetch data from req body
+        //extract file/video
+        //validation
+        //upload to cloudinary which will return a secure url 
+        //create a subsection
+        //update section with this sub section ObjectId
+        //return response
+
+2: create method by updateSubSection
+
+3: create method by deleteSubSection
+
+controllers/Profile.js
+
+1: create method by updateProfile
+        //get data
+        //get userId
+        //validation
+        //find profile
+        //update profile
+        //return response
+
+2: create method by deleteAccount
+        //get id
+        //validation
+        //delete profile
+        //delete user
+        //return response
+
+3: create method getAllUserDetails
+
+Lecture : 5
+
+npm i razorpay
+
+controllers/Payment.js
+
+//capture the payment and initiate the RazorPay order
+exports.capturePayment = async (req, res) => {
+    //get courseID and userId
+    //validation
+    //valid courseId
+    //valid courseDetail
+    //user already pay for the same course
+    //order create 
+    //return response
+}
+
+
+Lecture : 6
+
+//createRating
+
+controllers/RatingAndReview.js
+
+exports.createRating = async (req, res) => {
+    try{
+         //get user id
+        //fetch data from req body
+        //check if user is enrolled or not
+        //check if user already reviewed the course
+        //create rating and review
+        //update course with this rating/review
+    }
+    catch(error){
+
+    }
+}
+
+//getAverageRating
+
+
+//getAllRating
+
+
+LECTURE : 7
+npm i bcryptjs
+npm i cors
