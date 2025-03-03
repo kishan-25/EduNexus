@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "v22.6.0"
+  },
   "name": "megaproject",
   "version": "1.0.0",
   "main": "index.js",
