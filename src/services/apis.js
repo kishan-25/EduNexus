@@ -1,5 +1,5 @@
-const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:4000/api/v1"; 
-
+// const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:4000/api/v1"; 
+const BASE_URL = "https://edu-nexus.onrender.com/api/v1";
 // export const categories = {
 //     CATEGORIES_API: `${BASE_URL}/course/showAllCategories`,
 // };
@@ -28,7 +28,7 @@ export const studentEndpoints = {
 }
 
 // COURSE ENDPOINTS
-export const courseEndpoints = {
+export const courseEndpoints = { 
   GET_ALL_COURSE_API: BASE_URL + "/course/getAllCourses",
   COURSE_DETAILS_API: BASE_URL + "/course/getCourseDetails",
   EDIT_COURSE_API: BASE_URL + "/course/editCourse",
