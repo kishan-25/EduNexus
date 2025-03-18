@@ -2,7 +2,7 @@
   "engines": {
     "node": "v22.6.0"
   },
-  "name": "studynotion",
+  "name": "edunexus-fronetnd",
   "private": true,
   "version": "0.0.0",
   "type": "module",

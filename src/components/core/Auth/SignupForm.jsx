@@ -69,15 +69,16 @@ function SignupForm() {
 
   // data to pass to Tab component
   const tabData = [
+    
     {
       id: 1,
-      tabName: "Student",
-      type: ACCOUNT_TYPE.STUDENT,
+      tabName: "Instructor",
+      type: ACCOUNT_TYPE.INSTRUCTOR,
     },
     {
       id: 2,
-      tabName: "Instructor",
-      type: ACCOUNT_TYPE.INSTRUCTOR,
+      tabName: "Student",
+      type: ACCOUNT_TYPE.STUDENT,
     },
   ]
 

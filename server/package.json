@@ -2,7 +2,7 @@
   "engines": {
     "node": "v22.6.0"
   },
-  "name": "megaproject",
+  "name": "edunexus-backend",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
