@@ -19,11 +19,14 @@ app.use(express.json());
 app.use(cookieParser());
 //google about cors - 
 app.use(cors({
-    origin: ["http://localhost:3000","https://edunexus-eight.vercel.app"],
+    origin: [
+        "http://localhost:3000", 
+        "https://edunexus-eight.vercel.app",
+        "https://edunexus-9f0c.onrender.com"  // Add your backend URL
+    ],
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
 }));
-
 // app.use(cors({ origin: "https://study-notion-frontend-sooty.vercel.app" }));
 
 app.use(fileUpload({useTempFiles:true,tempFileDir:"/tmp"}))
