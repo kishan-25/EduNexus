@@ -17,12 +17,12 @@ const PORT = process.env.PORT || 4000;
 database.connect();
 app.use(express.json());
 app.use(cookieParser());
-//google about cors - 
 app.use(cors({
     origin: [
         "http://localhost:3000", 
         "https://edunexus-8y2pu61hb-kishan-25s-projects.vercel.app",
-        "https://edunexus-9f0c.onrender.com" 
+        "https://edunexus-9f0c.onrender.com",
+        "https://edunexus-eight.vercel.app"  // Add this line
     ],
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
