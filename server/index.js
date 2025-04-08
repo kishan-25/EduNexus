@@ -20,7 +20,9 @@ app.use(cookieParser());
 app.use(cors({
     origin: [
         "http://localhost:3000", 
-        "https://edunexus-ib1k2dgy5-kishan-25s-projects.vercel.app/"
+        "https://edunexus-ib1k2dgy5-kishan-25s-projects.vercel.app",  // Remove the trailing slash
+        "https://edunexus-eight.vercel.app",  // Add your production domain
+        "https://edunexus-9f0c.onrender.com"  // Add your backend domain if needed
     ],
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
