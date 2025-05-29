@@ -20,7 +20,7 @@ const Footer = () => {
             </div>
           </div>
           <p className="mt-4 text-sm text-gray-500">
-            © {new Date().getFullYear()} Company Name. All rights reserved.
+            © {new Date().getFullYear()} EduNexus. All rights reserved.
           </p>
         </div>
       </div>
