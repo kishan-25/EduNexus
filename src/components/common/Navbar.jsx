@@ -86,7 +86,9 @@ function Navbar() {
                       <div className="invisible absolute left-[50%] top-[50%] z-[1000] flex w-[200px] translate-x-[-50%] translate-y-[3em] flex-col rounded-lg bg-richblack-5 p-4 text-richblack-900 opacity-0 transition-all duration-150 group-hover:visible group-hover:translate-y-[1.65em] group-hover:opacity-100 lg:w-[300px]">
                         <div className="absolute left-[50%] top-0 -z-10 h-6 w-6 translate-x-[80%] translate-y-[-40%] rotate-45 select-none rounded bg-richblack-5"></div>
                         {loading ? (
-                          <p className="text-center">Loading...</p>
+                          <div className="text-center bg-white rounded-md py-2 px-4">
+                            <p className="text-black font-medium">Loading...</p>
+                          </div>
                         ) : (subLinks && subLinks.length) ? (
                           <>
                             {subLinks
@@ -107,7 +109,9 @@ function Navbar() {
                               ))}
                           </>
                         ) : (
-                          <p className="text-center text-white">No Courses Found</p>
+                          <div className="text-center bg-white rounded-md py-2 px-4">
+                            <p className="text-black font-medium">No Courses Found</p>
+                          </div>
                         )}
                       </div>
                     </div>
@@ -202,7 +206,9 @@ function Navbar() {
                     {isCatalogOpen && (
                       <div className="ml-4 mt-2 space-y-2">
                         {loading ? (
-                          <p className="text-richblack-300">Loading...</p>
+                          <div className="bg-white rounded-md py-2 px-4 text-center">
+                            <p className="text-black font-medium">Loading...</p>
+                          </div>
                         ) : (subLinks && subLinks.length) ? (
                           subLinks
                             // ?.filter(
@@ -222,7 +228,9 @@ function Navbar() {
                               </Link>
                             ))
                         ) : (
-                          <p className="text-richblack-300">No Courses Found</p>
+                          <div className="bg-white rounded-md py-2 px-4 text-center">
+                            <p className="text-black font-medium">No Courses Found</p>
+                          </div>
                         )}
                       </div>
                     )}
