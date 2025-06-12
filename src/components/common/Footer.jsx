@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="w-full max-w-screen-xl mx-auto py-10 px-5">
         
        
-        {/* Footer Bottom */}
+        {/* Footer Bottom */} 
         <div className="border-t border-richblack-700 pt-4 text-center text-sm text-richblack-400">
           <div className="flex justify-center gap-8">
             <div className="cursor-pointer hover:text-richblack-50 transition-all duration-300">

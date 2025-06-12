@@ -6,23 +6,26 @@ import { FaArrowRight } from 'react-icons/fa';
 
 const BecomeInstructor = () => {
   return (
-    <div className="w-full flex p-20 h-[90vh] gap-10">
+    <div className="w-full flex flex-col lg:flex-row p-4 sm:p-8 lg:p-20 min-h-[60vh] lg:h-[90vh] gap-6 lg:gap-10">
       {/* Left Side - Image Section */}
-      <div className="w-1/2 flex justify-center items-center">
-        <img
+      <div className="w-full lg:w-1/2 flex justify-center items-center order-2 lg:order-1">
+        <img 
           src={standing_lady_with_book}
           alt="Standing Lady with Book"
-          className="object-contain w-full"
+          className="object-contain w-full max-w-md lg:max-w-full"
           style={{
-            boxShadow: "20px 20px 0px white",
+            boxShadow: "10px 10px 0px white",
           }}
         />
       </div>
 
-      {/* Right Side - Text or Additional Content */}
-      <div className="w-1/2 flex flex-col justify-center items-start pl-10">
-        <h2 className="text-4xl font-bold mb-4 flex flex-col">&nbsp;Become an<HiglightedText text="Instructor"/></h2>
-        <p className="text-sm text-gray-400 mb-6">
+      {/* Right Side - Text Content */}
+      <div className="w-full lg:w-1/2 flex flex-col justify-center items-center lg:items-start lg:pl-10 order-1 lg:order-2 text-center lg:text-left">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 flex flex-col">
+          <span>Become an</span>
+          <HiglightedText text="Instructor"/>
+        </h2>
+        <p className="text-sm text-gray-400 mb-6 max-w-md lg:max-w-none px-4 lg:px-0">
           Share your knowledge and inspire students around the world by becoming an instructor. 
           Join a community of passionate educators and make a difference.
         </p>

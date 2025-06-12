@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { AiOutlineMenu, AiOutlineShoppingCart } from "react-icons/ai"
+import { AiOutlineMenu, AiOutlineShoppingCart, AiOutlineClose } from "react-icons/ai"
 import { BsChevronDown } from "react-icons/bs"
 import { useSelector } from "react-redux"
 import { Link, matchPath, useLocation } from "react-router-dom"
@@ -19,6 +19,8 @@ function Navbar() {
 
   const [subLinks, setSubLinks] = useState([])
   const [loading, setLoading] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isCatalogOpen, setIsCatalogOpen] = useState(false)
 
   useEffect(() => {
     ;(async () => {
@@ -34,10 +36,24 @@ function Navbar() {
     })()
   }, [])
 
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false)
+    setIsCatalogOpen(false)
+  }, [location.pathname])
+
   // console.log("sub links", subLinks)
 
   const matchRoute = (route) => {
     return matchPath({ path: route }, location.pathname)
+  }
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen)
+  }
+
+  const toggleCatalog = () => {
+    setIsCatalogOpen(!isCatalogOpen)
   }
 
   return (
@@ -128,19 +144,16 @@ function Navbar() {
           )
         }
 
-
         {token !== null && user?.image && (
           <Link to="/dashboard/my-profile" className="relative text-white text-2xl">
             <img src={user?.image} alt="Profile" className="bg-white w-6 h-6 rounded-full" />
           </Link>
         )}
 
-
-
         {
         // if not logged in then it will go for login and signup buttons  
           token===null && (
-            <div className='flex gap-5'>
+            <div className='hidden md:flex gap-5'>
               <Link to="/login">
                 <button className='border-[1px] border-white text-white bg-black px-3 py-1 rounded-md'>Login</button>
               </Link>
@@ -150,11 +163,107 @@ function Navbar() {
             </div>
           )
         }
-      </div>
-        <button className="mr-4 md:hidden">
-          <AiOutlineMenu fontSize={24} fill="#AFB2BF" className="text-white bg-richblack-900"/>
+        
+        {/* Mobile hamburger menu button */}
+        <button 
+          className="mr-4 md:hidden text-white"
+          onClick={toggleMobileMenu}
+        >
+          {isMobileMenuOpen ? (
+            <AiOutlineClose fontSize={24} />
+          ) : (
+            <AiOutlineMenu fontSize={24} />
+          )}
         </button>
       </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="absolute top-14 left-0 right-0 bg-richblack-800 border-b border-richblack-300 z-[1000] md:hidden">
+          <div className="flex flex-col p-4 space-y-4">
+            {/* Navigation Links */}
+            {NavbarLinks.map((link, index) => (
+              <div key={index}>
+                {link.title === "Catalog" ? (
+                  <>
+                    <div
+                      className={`flex cursor-pointer items-center justify-between py-2 ${
+                        matchRoute("/catalog/:catalogName")
+                          ? "text-yellow-400"
+                          : "text-richblack-300"
+                      }`}
+                      onClick={toggleCatalog}
+                    >
+                      <p className="text-lg">{link.title}</p>
+                      <BsChevronDown className={`transform transition-transform ${isCatalogOpen ? 'rotate-180' : ''}`} />
+                    </div>
+                    {/* Mobile Catalog Dropdown */}
+                    {isCatalogOpen && (
+                      <div className="ml-4 mt-2 space-y-2">
+                        {loading ? (
+                          <p className="text-richblack-300">Loading...</p>
+                        ) : (subLinks && subLinks.length) ? (
+                          subLinks
+                            // ?.filter(
+                            //   (subLink) => subLink?.courses?.length > 0
+                            // )
+                            ?.map((subLink, i) => (
+                              <Link
+                                key={i}
+                                to={`/catalog/${subLink.name
+                                  .split(" ")
+                                  .join("-")
+                                  .toLowerCase()}`}
+                                className="block py-2 px-4 text-richblack-300 hover:text-yellow-400 hover:bg-richblack-700 rounded"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                              >
+                                <p>{subLink.name}</p>
+                              </Link>
+                            ))
+                        ) : (
+                          <p className="text-richblack-300">No Courses Found</p>
+                        )}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <Link 
+                    to={link?.path}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <p
+                      className={`text-lg py-2 ${
+                        matchRoute(link?.path)
+                          ? "text-yellow-400"
+                          : "text-richblack-300"
+                      }`}
+                    >
+                      {link.title}
+                    </p>
+                  </Link>
+                )}
+              </div>
+            ))}
+
+            {/* Mobile Login/Signup buttons */}
+            {token === null && (
+              <div className='flex flex-col gap-3 pt-4 border-t border-richblack-600'>
+                <Link to="/login" onClick={() => setIsMobileMenuOpen(false)}>
+                  <button className='w-full border-[1px] border-white text-white bg-black px-3 py-2 rounded-md'>
+                    Login
+                  </button>
+                </Link>
+                <Link to="/signup" onClick={() => setIsMobileMenuOpen(false)}>
+                  <button className='w-full border-[1px] border-white text-white bg-black px-3 py-2 rounded-md'>
+                    Signup
+                  </button>
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
