@@ -68,7 +68,7 @@ const Signup = () => {
         
         {/* Left Section (Form) */}
         <div className='flex flex-col w-full lg:w-[40%] p-6 sm:p-8 lg:p-10 bg-gray-800 rounded-lg shadow-lg'>
-          <p className='text-2xl sm:text-3xl text-white font-bold text-center'>Join StudyNotion for free</p>
+          <p className='text-2xl sm:text-3xl text-white font-bold text-center'>Join EduNexus for free</p>
           <p className='text-sm text-gray-300 mt-3 text-center'>
             Build skills for today, tomorrow, and beyond.{" "}
             <span className='font-semibold text-blue-300'>Future-proof your career.</span>

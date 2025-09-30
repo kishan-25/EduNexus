@@ -1,14 +1,15 @@
-const Course = require('../models/Course');
-const Category = require('../models/Category');
-const User = require("../models/User")
-const Section = require("../models/Section");
-const SubSection = require("../models/SubSection");
-const {uploadImagetoCloudinary} = require('../utils/imageUploader');
-const CourseProgress = require("../models/CourseProgress");
+import Category from '../models/Category.js';
+import Course from '../models/Course.js';
+import User from '../models/User.js';
+import Section from '../models/Section.js';
+import SubSection from '../models/SubSection.js';
+import CourseProgress from '../models/CourseProgress.js';
+import { uploadImagetoCloudinary } from '../utils/imageUploader.js';
 
-require('dotenv').config();
+import dotenv from 'dotenv'
+dotenv.config();
 
-exports.editCourse = async (req, res) => {
+export const editCourse = async (req, res) => {
     try {
         const { courseId } = req.body;
         if (!courseId) {
@@ -97,7 +98,7 @@ exports.editCourse = async (req, res) => {
     }
 };
 
-exports.createCourse = async (req, res) => {
+export const createCourse = async (req, res) => {
     try { 
         const { courseName, courseDescription, whatYouWillLearn, price, category, email, status = "Draft" } = req.body;
         const thumbnail = req.files?.thumbnailImage;
@@ -187,7 +188,7 @@ exports.createCourse = async (req, res) => {
     }
 };
 
-exports.showAllCourses = async (req,res)=>{
+export const showAllCourses = async (req,res)=>{
     try{
         const allCourses = await Course.find({}, {
             courseName: true,
@@ -213,7 +214,7 @@ exports.showAllCourses = async (req,res)=>{
     }
 }
 
-exports.getCourseDetails = async (req,res)=>{
+export const getCourseDetails = async (req,res)=>{
     try {
         const {courseId} = req.body;
         // console.log("courseID", courseId) 
@@ -253,7 +254,7 @@ exports.getCourseDetails = async (req,res)=>{
     }
 }
 
-exports.getInstructorCourses = async (req, res) => {
+export const getInstructorCourses = async (req, res) => {
     try {
         const instructorId = req.query.instructorId;  
         // console.log("Instructor ID:", instructorId);
@@ -288,7 +289,7 @@ exports.getInstructorCourses = async (req, res) => {
     }
 };
 
-exports.deleteCourse = async (req, res) => {
+export const deleteCourse = async (req, res) => {
     try {
         const { courseId } = req.body;
         // Check if course exists
@@ -338,7 +339,7 @@ exports.deleteCourse = async (req, res) => {
     }
 };
 
-exports.updateCourseProgress = async (req, res) => {
+export const updateCourseProgress = async (req, res) => {
   try {
     const { userId, courseId, subSectionId } = req.body;
 

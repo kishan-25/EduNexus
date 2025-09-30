@@ -1,7 +1,6 @@
-const Category = require("../models/Category");
-const Course = require("../models/Course");
+import Category from "../models/Category.js";
 
-exports.createCategory = async (req, res) =>{
+export const createCategory = async (req, res) =>{
     try{
         const {name, description} = req.body;
 
@@ -31,9 +30,9 @@ exports.createCategory = async (req, res) =>{
     }
 }
 
-exports.findAllCategory = async (req, res)=>{
+export const findAllCategory = async (req, res)=>{
     try{
-        const allCategory = await Category.find({}, {name: true, description: true});
+        const allCategory = await Category.find({});
         return res.status(200).json({
             success: true,
             message: "All tags found succesfully...",
@@ -51,7 +50,7 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
-exports.categoryPageDetails = async (req, res) => {
+export const categoryPageDetails = async (req, res) => {
     try {
       const { categoryId } = req.body
       // console.log("PRINTING CATEGORY ID: ", categoryId);

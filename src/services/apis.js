@@ -1,6 +1,6 @@
-// const BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000/api/v1";
+const BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:4000/api/v1";
 
-const BASE_URL = "https://edunexus-9f0c.onrender.com/api/v1"
+// const BASE_URL = "https://edunexus-9f0c.onrender.com/api/v1"
 
 // AUTH ENDPOINTS
 export const endpoints = {

@@ -1,14 +1,15 @@
-const express = require('express');
-const router = express.Router();
-const {login, signUp, changePassword, sendOTP} = require('../controllers/Auth')
-const {resetPasswordToken, resetPassword} = require('../controllers/ResetPassword')
-const {auth, isAdmin, isStudent, isInstructor} = require("../middlewares/auth");
- 
-router.post('/login',login);
-router.post('/signup',signUp);
-router.post('/changepassword', changePassword); 
-router.post('/reset-password-token', resetPasswordToken)
-router.post('/reset-password', resetPassword)
-router.post('/sendotp',sendOTP);
+import express from "express";
+import { login, signUp, changePassword, sendOTP } from "../controllers/Auth.js";
+import { resetPasswordToken, resetPassword } from "../controllers/ResetPassword.js";
+// import { auth, isAdmin, isStudent, isInstructor } from "../middlewares/auth.js";
 
-module.exports = router;
+const router = express.Router();
+
+router.post("/login", login);
+router.post("/signup", signUp);
+router.post("/changepassword", changePassword);
+router.post("/reset-password-token", resetPasswordToken);
+router.post("/reset-password", resetPassword);
+router.post("/sendotp", sendOTP);
+
+export default router;

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const ratingAndReviews = new mongoose.Schema({
     user: {
@@ -21,4 +21,4 @@ const ratingAndReviews = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model("RatingAndReview",ratingAndReviews);
+export default mongoose.model("RatingAndReview",ratingAndReviews);

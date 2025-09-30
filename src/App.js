@@ -26,14 +26,18 @@ import VideoDetails from "./components/core/ViewCourse/VideoDetails";
 // import { ACCOUNT_TYPE } from "./utils/constants";
 import CourseDetails from './pages/CourseDetails';
 import ContactUsPage from './pages/Contact';
-import { useSelector } from 'react-redux';
+import Footer from './components/common/Footer';
+// import { useSelector } from 'react-redux';
 // import { Outlet } from 'react-router-dom';
 
 function App() {
-  const { user } = useSelector((state) => state.profile)
+  // const { user } = useSelector((state) => state.profile)
   return (
-    <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
+    // <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
+    <div className="w-full min-h-screen bg-richblack-900 flex flex-col font-inter">
       <Navbar />
+      
+      <main className="flex-1 w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-6">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -72,6 +76,8 @@ function App() {
         </Route>
 
       </Routes>
+      </main>
+      <Footer/>
     </div>
   );
 }

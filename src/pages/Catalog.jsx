@@ -138,8 +138,6 @@ const Catalog = () => {
 
             </div>
           </div>
-    
-          <Footer />
         </>
       )
     }

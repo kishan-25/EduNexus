@@ -1,8 +1,8 @@
-const Profile = require('../models/Profile');
-const User = require('../models/User');
-const jwt = require("jsonwebtoken");
+import Profile from '../models/Profile.js';
+import User from '../models/User.js';
+import jwt from 'jsonwebtoken'
 
-exports.getUserDetails = async (req, res) => {
+export const getUserDetails = async (req, res) => {
     try {
         
         const { email } = req.query;
@@ -37,7 +37,7 @@ exports.getUserDetails = async (req, res) => {
     }
 };
 
-exports.updateProfile = async (req, res) => {
+export const updateProfile = async (req, res) => {
     try {
         const { email, dateOfBirth, about, contactNumber, gender, firstName, lastName } = req.body;
         console.log(email, dateOfBirth, about, contactNumber, gender, firstName, lastName); 
@@ -81,7 +81,7 @@ exports.updateProfile = async (req, res) => {
     }
 };
 
-exports.deleteAccount = async (req, res) => {
+export const deleteAccount = async (req, res) => {
   try {
     const token = req.headers.authorization?.split(" ")[1];
     if (!token) {
@@ -126,7 +126,7 @@ exports.deleteAccount = async (req, res) => {
   }
 };
 
-exports.getAllUsers = async (req, res)=>{
+export const getAllUsers = async (req, res)=>{
     try {
         const userId = req.user.id;
         const users = await User.findById(userId).populate("additionalDetails").exec();
@@ -143,7 +143,7 @@ exports.getAllUsers = async (req, res)=>{
     }
 }
 
-exports.getEnrolledCourses = async (req, res) => {
+export const getEnrolledCourses = async (req, res) => {
     try {
       // const userId = req.user.id; // Assuming authentication middleware adds `req.user`
       const { userId }= req.query
@@ -182,7 +182,7 @@ exports.getEnrolledCourses = async (req, res) => {
     }
 };
 
-exports.instructorDetails = async (req, res) => {
+export const instructorDetails = async (req, res) => {
     try {
         const { userId } = req.query; // Get instructor ID from request params
         const instructorId = userId

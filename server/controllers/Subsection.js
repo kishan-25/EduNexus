@@ -1,9 +1,9 @@
-const subSection = require('../models/SubSection')
-const Section = require('../models/Section')
-const {uploadImagetoCloudinary} = require('../utils/imageUploader');
-const Course = require('../models/Course')
+import subSection from '../models/SubSection.js';
+import Section from '../models/Section.js';
+import { uploadImagetoCloudinary } from '../utils/imageUploader.js';
+import Course from '../models/Course.js';
 
-exports.createSubSection = async (req, res)=>{
+export const createSubSection = async (req, res)=>{
     try{
         const {sectionId, title, timeDuration, description,courseId} = req.body;
         const video = req.files.video;
@@ -43,7 +43,7 @@ exports.createSubSection = async (req, res)=>{
     }
 }
 
-exports.deleteSubSection = async (req, res) => {
+export const deleteSubSection = async (req, res) => {
     try {
         const { sectionId, subSectionId, courseId } = req.body;
 
@@ -97,7 +97,7 @@ exports.deleteSubSection = async (req, res) => {
     }
 };
 
-exports.updateSubSection = async (req, res) => {
+export const updateSubSection = async (req, res) => {
     try {
         const { subSectionId, sectionId, courseId, title, description } = req.body;
         const video = req.files?.video;  // Optional file upload

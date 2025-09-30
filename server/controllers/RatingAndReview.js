@@ -1,11 +1,11 @@
-const RatingAndReview = require('../models/RatingAndReview')
-const Course = require('../models/Course')
+import mongoose from 'mongoose'
+import RatingAndReview from '../models/RatingAndReview.js'
+import Course from '../models/Course.js'
 
-exports.createRating = async (req, res)=>{
+export const createRating = async (req, res)=>{
     try {
         const {rating, review, courseId, userId} = req.body;
-        // const userId = req.user.id;
-
+        
         if(!rating || !review){
             return res.status(400).json({
                 success: false,
@@ -22,7 +22,7 @@ exports.createRating = async (req, res)=>{
             })
         }
 
-        const alreadyReviewed = await RatingAndReview.findOne({user: userId,course: courseId});  
+        const alreadyReviewed = await RatingAndReview.findOne({user: userId,course: courseId});
         // console.log("alredyReviewed", alreadyReviewed)
         if(alreadyReviewed){
             return res.status(403).json({
@@ -36,16 +36,19 @@ exports.createRating = async (req, res)=>{
             rating: rating,
             review: review,
         })
+        // console.log("created" ,RatingAndReviewResponse)
         if(!RatingAndReviewResponse){
             return res.status(400).json({
                 success: false,
                 message: "Can't create review object ...",
             })
         }
-        const updatedCourseDetails = await Course.findByIdAndUpdate(coureseId,{$push:{
+        const updatedCourseDetails = await Course.findByIdAndUpdate(courseId ,{$push:{
             ratingAndReviews: RatingAndReviewResponse._id 
         }},{new: true});
-        console.log(updatedCourseDetails)
+
+        // console.log("updated", updatedCourseDetails)
+
         return res.status(200).json({
             success: true,
             message: "Review done successfully",
@@ -58,7 +61,7 @@ exports.createRating = async (req, res)=>{
     }
 }
 
-exports.getAverageRating = async (req,res)=>{
+export const getAverageRating = async (req,res)=>{
     try {
         const courseId = req.body.courseId;
         const result = await RatingAndReview.aggregate([
@@ -95,7 +98,7 @@ exports.getAverageRating = async (req,res)=>{
     }
 }
 
-exports.getAllReviews = async (req,res)=>{
+export const getAllReviews = async (req,res)=>{
     try {
         const allReviews = await RatingAndReview.find({}).sort({rating: "desc"}).populate({path:'user',select:"firstName lastName email image"}).populate({path:'course',select:'courseName'}).exec();
         return res.status(200).json({
